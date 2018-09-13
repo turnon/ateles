@@ -13,14 +13,14 @@ function Ateles(module_names, fn) {
         request.send(null);
 
         if (request.status === 200) {
-            mod = (new Function(request.responseText))();
+            mod = (new Function('Ateles', request.responseText))(Ateles);
             Ateles.cache[name] = mod;
             return mod;
         }
     }
 
     var modules = module_names.map(function (name) {
-        pick(name)
+        return pick(name)
     });
 
     return fn.apply(null, modules)
