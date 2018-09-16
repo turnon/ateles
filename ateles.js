@@ -25,10 +25,19 @@ window.Ateles = (function () {
                 return that.module_cache(name);
             });
 
-        this.module_cache(this.self_name, this.mod_generator.apply(null, mods));
+        var mod = this.mod_generator.apply(null, mods);
+        var cache_and_call_parent = _cache_and_call_parent(this);
 
-        if (this.parent && this.parent.generate) {
-            this.parent.generate();
+        if (mod && (typeof mod.then === 'function')) {
+            return mod.then(cache_and_call_parent)
+        }
+        cache_and_call_parent(mod)
+    }
+
+    function _cache_and_call_parent(that) {
+        return function (mod) {
+            that.module_cache(that.self_name, mod);
+            that.parent && that.parent.generate && that.parent.generate();
         }
     }
 
