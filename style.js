@@ -40,7 +40,7 @@ Ateles(function () {
 
     function inject(tag) {
         var head = document.head || document.getElementsByTagName('head')[0];
-        head.appendChild(atg);
+        head.appendChild(tag);
     }
 
     function text(css) {
