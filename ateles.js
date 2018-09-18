@@ -1,6 +1,8 @@
 // https://greasyfork.org/zh-CN/scripts/372188-ateles
 window.Ateles = (function () {
-    var base_url = "https://raw.githubusercontent.com/turnon/ateles/master/";
+    var branch = 'master',
+        repo = 'https://raw.githubusercontent.com/turnon/ateles/',
+        base_url = repo + branch + '/';
 
     function parse(name, code) {
         if (this.module_cache(name)) {
@@ -114,7 +116,7 @@ window.Ateles = (function () {
         };
     }
 
-    return function (dep_names, mod_generator, parent, self_name) {
+    function ateles(dep_names, mod_generator, parent, self_name) {
         if (!mod_generator) {
             mod_generator = dep_names;
             dep_names = [];
@@ -126,5 +128,11 @@ window.Ateles = (function () {
         })
 
         new_mod(dep_names, mod_generator, parent, self_name).solve();
-    };
+    }
+
+    ateles.branch = function (name) {
+        base_url = repo + name + '/';
+    }
+
+    return ateles;
 })();
