@@ -1,5 +1,5 @@
 // https://purecss.io/menus/
-Ateles(['pure_css', 'style'], function (_, style) {
+Ateles(['pure_css', 'css'], function (_, css) {
 
     var menu_directions = {
         down_right: '',
@@ -40,14 +40,22 @@ Ateles(['pure_css', 'style'], function (_, style) {
             opt = args.pop(),
             lists = args,
             id = next_id(),
+            block_id = 'ateles-pure-dropdown-block-' + id,
             a_id = 'ateles-pure-dropdown-a-' + id,
             menu_id = 'ateles-pure-dropdown-menu-' + id,
             direction = opt.direction || 'down_right';
 
-        style.text('#' + menu_id + '{' + menu_directions[direction] + '}' + '#' + a_id + ':after{content:none}' + '#' + a_id + arrow_directions[direction]);
+        var style = [
+            '#', block_id, '{', opt.block_style, '}',
+            '#', menu_id, '{', menu_directions[direction], '}',
+            '#', a_id, ':after{content:none}',
+            '#', a_id, arrow_directions[direction]
+        ].join('');
+
+        css.text(style);
 
         var menu = [
-            '<div class="pure-menu pure-menu-horizontal">', "\n",
+            '<div id="', block_id, '" class="pure-menu pure-menu-horizontal">', "\n",
             '<ul class="pure-menu-list">', "\n",
             '<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">'
         ];
