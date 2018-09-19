@@ -35,6 +35,11 @@ Ateles(['pure_css', 'css'], function (_, css) {
         return i++;
     }
 
+    css.text([
+        '.ateles-pure-menu-hr{display: block; border: 0; border-top: 1px solid #f4f4f4; margin: 0; padding: 0;}',
+        '.ateles-pure-menu-children{border: 1px solid #eee; border-top: 0;}'
+    ].join(''));
+
     function assign_css(opt) {
         var direction = opt.direction || 'down_right',
             style_opt = opt.style || {},
@@ -81,7 +86,7 @@ Ateles(['pure_css', 'css'], function (_, css) {
         menu.push('</a>');
         menu.push('<ul id="');
         menu.push(selectors.children_id);
-        menu.push('" class="pure-menu-children">');
+        menu.push('" class="pure-menu-children ateles-pure-menu-children">');
         menu.push("\n");
 
         lists.forEach(function (list) {
@@ -92,7 +97,7 @@ Ateles(['pure_css', 'css'], function (_, css) {
                 menu.push(item);
                 menu.push("</a></li>\n");
             })
-            menu.push("<hr>\n");
+            menu.push("<hr class='ateles-pure-menu-hr'>\n");
         })
 
         menu.pop();
