@@ -37,6 +37,7 @@ Ateles(['pure_css', 'css'], function (_, css) {
 
     function assign_css(opt) {
         var direction = opt.direction || 'down_right',
+            style_opt = opt.style || {},
             id = next_id(),
             selectors = {
                 id: 'ateles-pure-menu-' + id,
@@ -44,16 +45,19 @@ Ateles(['pure_css', 'css'], function (_, css) {
                 children_id: 'ateles-pure-menu-children-' + id
             };
 
-        var style_opt = opt.style || {},
-            style = [
-                '#', selectors.id, '{', style_opt.id, '}',
-                '#', selectors.link_id, '{text-decoration: none}',
-                '#', selectors.link_id, ':after{content:none}',
-                '#', selectors.link_id, arrow_directions[direction],
-                '#', selectors.children_id, '{', menu_directions[direction], '}'
-            ].join('');
+        var style = [
+            '#', selectors.id, '{', style_opt.id, '}',
 
-        css.text(style);
+            '#', selectors.link_id, '{text-decoration: none}',
+            '#', selectors.link_id, ':after{content:none}',
+            '#', selectors.link_id, arrow_directions[direction],
+            '#', selectors.link_id, '{', style_opt.link, '}',
+            '#', selectors.id, ':hover #', selectors.link_id, '{', style_opt.hover_link, '}',
+
+            '#', selectors.children_id, '{', menu_directions[direction], '}'
+        ];
+
+        css.text(style.join(''));
 
         return selectors;
     }
