@@ -35,38 +35,48 @@ Ateles(['pure_css', 'css'], function (_, css) {
         return i++;
     }
 
-    return function menu() {
-        var args = Array.prototype.slice.call(arguments),
-            opt = args.pop(),
-            lists = args,
+    function assign_css(opt) {
+        var direction = opt.direction || 'down_right',
             id = next_id(),
-            block_id = 'ateles-pure-dropdown-block-' + id,
-            a_id = 'ateles-pure-dropdown-a-' + id,
-            menu_id = 'ateles-pure-dropdown-menu-' + id,
-            direction = opt.direction || 'down_right';
+            selectors = {
+                id: 'ateles-pure-menu-' + id,
+                link_id: 'ateles-pure-menu-link-' + id,
+                children_id: 'ateles-pure-menu-children-' + id
+            };
 
-        var style = [
-            '#', block_id, '{', opt.block_style, '}',
-            '#', menu_id, '{', menu_directions[direction], '}',
-            '#', a_id, ':after{content:none}',
-            '#', a_id, arrow_directions[direction]
-        ].join('');
+        var style_opt = opt.style || {},
+            style = [
+                '#', selectors.id, '{', style_opt.id, '}',
+                '#', selectors.link_id, '{text-decoration: none}',
+                '#', selectors.link_id, ':after{content:none}',
+                '#', selectors.link_id, arrow_directions[direction],
+                '#', selectors.children_id, '{', menu_directions[direction], '}'
+            ].join('');
 
         css.text(style);
 
-        var menu = [
-            '<div id="', block_id, '" class="pure-menu pure-menu-horizontal">', "\n",
-            '<ul class="pure-menu-list">', "\n",
-            '<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">'
-        ];
+        return selectors;
+    }
+
+    return function menu() {
+        var args = Array.prototype.slice.call(arguments),
+            opt = args.pop(),
+            lists = args;
+
+        var selectors = assign_css(opt),
+            menu = [
+                '<div id="', selectors.id, '" class="pure-menu pure-menu-horizontal">', "\n",
+                '<ul class="pure-menu-list">', "\n",
+                '<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">'
+            ];
 
         menu.push('<a href="#" id="');
-        menu.push(a_id);
+        menu.push(selectors.link_id);
         menu.push('" class="pure-menu-link">');
         menu.push(opt.name);
         menu.push('</a>');
         menu.push('<ul id="');
-        menu.push(menu_id);
+        menu.push(selectors.children_id);
         menu.push('" class="pure-menu-children">');
         menu.push("\n");
 
