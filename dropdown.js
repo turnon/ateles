@@ -2,17 +2,17 @@
 Ateles(['pure_css', 'css'], function (_, css) {
 
     var menu_directions = {
-        down_right: '',
-        up_right: 'bottom: 100%',
+        down_right: 'margin-left: -1px;',
+        up_right: 'bottom: 100%; margin-left: -1px;',
 
-        down_left: 'right: 0; left: auto;',
-        up_left: 'right: 0; left: auto; bottom: 100%;',
+        down_left: 'right: 0; left: auto; margin-right: -1px;',
+        up_left: 'right: 0; left: auto; bottom: 100%; margin-right: -1px;',
 
-        right_down: 'left: 100%; top: 0;',
-        right_up: 'left: 100%; bottom: 0;',
+        right_down: 'left: 100%; top: 0; margin-top: -1px;',
+        right_up: 'left: 100%; bottom: 0; margin-bottom: -1px;',
 
-        left_down: 'right: 100%; left: auto; top: 0;',
-        left_up: 'right: 100%; left: auto; bottom: 0;'
+        left_down: 'right: 100%; left: auto; top: 0; margin-top: -1px;',
+        left_up: 'right: 100%; left: auto; bottom: 0; margin-bottom: -1px;'
     };
 
     var arrow_directions = {
@@ -37,7 +37,7 @@ Ateles(['pure_css', 'css'], function (_, css) {
 
     css.text([
         '.ateles-pure-menu-hr{display: block; border: 0; border-top: 1px solid #f4f4f4; margin: 0; padding: 0;}',
-        '.ateles-pure-menu-children{border: 1px solid #eee; border-top: 0;}'
+        '.ateles-pure-menu-children{border: 1px solid #eee;}'
     ].join(''));
 
     function assign_css(opt) {
