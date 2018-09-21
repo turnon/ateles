@@ -9,11 +9,26 @@ Ateles(function () {
         button_all.css('cursor', 'pointer').click(load_pages_with(cfg));
     }
 
-    function load_pages_with(cfg) {
-        return function () {
-            var page_count = cfg.page_count(),
-                start_page = (cfg.page_count ? cfg.start_page() : 2);
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
+    function load_pages_with(cfg) {
+        var page_count = cfg.page_count(),
+            start_page = (cfg.page_count ? cfg.start_page() : 2);
+
+        if (cfg.interval) return async function () {
+            for (var i = start_page; i <= page_count; i++) {
+                var next_page = cfg.next_page(i),
+                    data = await fetch(next_page).then(resp => resp.text());
+                cfg.append_page(data);
+                await sleep(cfg.interval());
+            }
+
+            cfg.button_all.remove();
+        }
+
+        return function () {
             var page_loaders = [];
             for (var i = start_page; i <= page_count; i++) {
                 var next_page = cfg.next_page(i);
