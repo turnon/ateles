@@ -11,10 +11,11 @@ Ateles(function () {
 
     function load_pages_with(cfg) {
         return function () {
-            var page_count = cfg.page_count();
+            var page_count = cfg.page_count(),
+                start_page = (cfg.page_count ? cfg.start_page() : 2);
 
             var page_loaders = [];
-            for (var i = 2; i <= page_count; i++) {
+            for (var i = start_page; i <= page_count; i++) {
                 var next_page = cfg.next_page(i);
                 var fetcher = fetch(next_page).then(resp => resp.text());
                 page_loaders.push(fetcher);
