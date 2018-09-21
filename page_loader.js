@@ -15,7 +15,7 @@ Ateles(function () {
 
     function load_pages_with(cfg) {
         var page_count = cfg.page_count(),
-            start_page = (cfg.page_count ? cfg.start_page() : 2);
+            start_page = (cfg.start_page ? cfg.start_page() : 2);
 
         if (cfg.interval) return async function () {
             for (var i = start_page; i <= page_count; i++) {
