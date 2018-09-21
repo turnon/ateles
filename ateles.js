@@ -1,4 +1,5 @@
 // https://greasyfork.org/zh-CN/scripts/372188-ateles
+// https://github.com/turnon/ateles
 window.Ateles = (function () {
     var branch = 'master',
         repo = 'https://raw.githubusercontent.com/turnon/ateles/',
