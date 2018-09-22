@@ -14,6 +14,16 @@ Ateles(function () {
     }
 
     function load_pages_with(cfg) {
+        if (!cfg.page_count) return async function () {
+            var next_page = cfg.next_page(document);
+            while (next_page) {
+                var data = await fetch(next_page).then(resp => resp.text());
+                next_page = cfg.next_page(data);
+                cfg.append_page(data);
+            }
+            cfg.button_all.remove();
+        }
+
         var page_count = cfg.page_count(),
             start_page = (cfg.start_page ? cfg.start_page() : 2);
 
