@@ -37,12 +37,12 @@ Ateles(['pure_css', 'css'], function (_, css) {
         return i++;
     }
 
-    css.text([
+    css.text(
         '.ateles-pure-menu-has-children{border: 1px solid #eee;}',
         '.ateles-pure-menu-hr{display: block; border: 0; border-top: 1px solid #f4f4f4; margin: 0; padding: 0;}',
         '.ateles-pure-menu-children{border: 1px solid #eee;}',
         '.ateles-pure-menu-link{padding: 0 .5em;}'
-    ].join(''));
+    );
 
     function assign_css(opt) {
         var direction = opt.direction || 'down_right',
@@ -73,7 +73,7 @@ Ateles(['pure_css', 'css'], function (_, css) {
             style = style.concat(['#', selectors.link_id, ':after{padding-left: 0}']);
         }
 
-        css.text(style.join(''));
+        css.text.apply(null, style);
 
         return selectors;
     }

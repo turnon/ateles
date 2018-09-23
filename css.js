@@ -43,17 +43,12 @@ Ateles(function () {
         head.appendChild(tag);
     }
 
-    function text(css) {
-        var style = document.createElement('style');
+    function text() {
+        var css = Array.prototype.slice.call(arguments).join(''),
+            style = document.createElement('style');
+
         style.type = 'text/css';
-
-        if (style.styleSheet) {
-            // This is required for IE8 and below.
-            style.styleSheet.cssText = css;
-        } else {
-            style.appendChild(document.createTextNode(css));
-        }
-
+        style.appendChild(document.createTextNode(css));
         inject(style);
     }
 
