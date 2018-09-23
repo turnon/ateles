@@ -44,6 +44,7 @@ Ateles(['pure_css', 'css'], function (_, css) {
 
     function assign_css(opt) {
         var direction = opt.direction || 'down_right',
+            arrow = arrow_directions[direction],
             style_opt = opt.style || {},
             id = next_id(),
             selectors = {
@@ -52,17 +53,23 @@ Ateles(['pure_css', 'css'], function (_, css) {
                 children_id: 'ateles-pure-menu-children-' + id
             };
 
+        arrow = opt.name ? arrow : arrow.replace(/\\a0/, '');
+
         var style = [
             '#', selectors.id, '{', style_opt.id, '}',
 
             '#', selectors.link_id, '{text-decoration: none}',
             '#', selectors.link_id, ':after{content:none}',
-            '#', selectors.link_id, arrow_directions[direction],
+            '#', selectors.link_id, arrow,
             '#', selectors.link_id, '{', style_opt.link, '}',
             '#', selectors.id, ':hover #', selectors.link_id, '{', style_opt.hover_link, '}',
 
             '#', selectors.children_id, '{', menu_directions[direction], '}'
         ];
+
+        if (arrow.indexOf('after') > -1) {
+            style = style.concat(['#', selectors.link_id, ':after{padding-left: 0}']);
+        }
 
         css.text(style.join(''));
 
