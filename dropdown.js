@@ -2,17 +2,17 @@
 Ateles(['pure_css', 'css'], function (_, css) {
 
     var menu_directions = {
-        down_right: 'margin-left: -1px;',
-        up_right: 'bottom: 100%; margin-left: -1px;',
+        down_right: 'margin: 0 0 0 -1px;',
+        up_right: 'bottom: 100%; margin: 0 0 0 -1px;',
 
-        down_left: 'right: 0; left: auto; margin-right: -1px;',
-        up_left: 'right: 0; left: auto; bottom: 100%; margin-right: -1px;',
+        down_left: 'right: 0; left: auto; margin: 0 -1px 0 0;',
+        up_left: 'right: 0; left: auto; bottom: 100%; margin: 0 -1px 0 0;',
 
-        right_down: 'left: 100%; top: 0; margin-top: -1px;',
-        right_up: 'left: 100%; bottom: 0; margin-bottom: -1px;',
+        right_down: 'left: 100%; top: 0; margin: -1px 0 0 0;',
+        right_up: 'left: 100%; bottom: 0; margin: 0 0 -1px 0;',
 
-        left_down: 'right: 100%; left: auto; top: 0; margin-top: -1px;',
-        left_up: 'right: 100%; left: auto; bottom: 0; margin-bottom: -1px;'
+        left_down: 'right: 100%; left: auto; top: 0; margin: -1px 0 0 0;',
+        left_up: 'right: 100%; left: auto; bottom: 0; margin: 0 0 -1px 0;'
     };
 
     var arrow_directions = {
@@ -36,8 +36,10 @@ Ateles(['pure_css', 'css'], function (_, css) {
     }
 
     css.text([
+        '.ateles-pure-menu-has-children{border: 1px solid #eee;}',
         '.ateles-pure-menu-hr{display: block; border: 0; border-top: 1px solid #f4f4f4; margin: 0; padding: 0;}',
-        '.ateles-pure-menu-children{border: 1px solid #eee;}'
+        '.ateles-pure-menu-children{border: 1px solid #eee;}',
+        '.ateles-pure-menu-link{padding: 0 .5em;}'
     ].join(''));
 
     function assign_css(opt) {
@@ -76,12 +78,12 @@ Ateles(['pure_css', 'css'], function (_, css) {
             menu = [
                 '<div id="', selectors.id, '" class="pure-menu pure-menu-horizontal">', "\n",
                 '<ul class="pure-menu-list">', "\n",
-                '<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">'
+                '<li class="pure-menu-item pure-menu-has-children ateles-pure-menu-has-children pure-menu-allow-hover">'
             ];
 
         menu.push('<a href="#" id="');
         menu.push(selectors.link_id);
-        menu.push('" class="pure-menu-link">');
+        menu.push('" class="pure-menu-link ateles-pure-menu-link">');
         menu.push(opt.name);
         menu.push('</a>');
         menu.push('<ul id="');
@@ -91,7 +93,7 @@ Ateles(['pure_css', 'css'], function (_, css) {
 
         lists.forEach(function (list) {
             list.forEach(function (item) {
-                menu.push('<li class="pure-menu-item"><a class="pure-menu-link" href="#');
+                menu.push('<li class="pure-menu-item"><a class="pure-menu-link ateles-pure-menu-link" href="#');
                 menu.push(item);
                 menu.push('">');
                 menu.push(item);
