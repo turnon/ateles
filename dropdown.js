@@ -27,7 +27,9 @@ Ateles(['pure_css', 'css'], function (_, css) {
 
         left_down: ':before{content:"\\25c2\\a0"}',
         left_up: ':before{content:"\\25c2\\a0"}',
-    }
+    };
+
+    var positions = ['beforebegin', 'afterbegin', 'beforeend', 'afterend'];
 
     var i = Date.now();
 
@@ -76,7 +78,14 @@ Ateles(['pure_css', 'css'], function (_, css) {
         return selectors;
     }
 
-    return function menu() {
+    function insert(menu, opt) {
+        var position = positions.find(function (p) {
+            return opt[p];
+        });
+        opt[position].insertAdjacentHTML(position, menu);
+    }
+
+    return function () {
         var args = Array.prototype.slice.call(arguments),
             opt = args.pop(),
             lists = args;
@@ -112,6 +121,6 @@ Ateles(['pure_css', 'css'], function (_, css) {
         menu.pop();
         menu.push("</ul></li></ul></div>");
 
-        return menu.join('');
+        insert(menu.join(''), opt);
     }
 })
