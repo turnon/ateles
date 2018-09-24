@@ -85,7 +85,21 @@ Ateles(['pure_css', 'css'], function (_, css) {
         opt[position].insertAdjacentHTML(position, menu);
     }
 
-    return function () {
+    function add_li(menu, list) {
+        var is_arr = Array.isArray(list);
+        for (var k in list) {
+            var text = list[k],
+                href = is_arr ? text : k;
+
+            menu.push('<li class="pure-menu-item"><a class="pure-menu-link ateles-pure-menu-link" href="#');
+            menu.push(href);
+            menu.push('">');
+            menu.push(text);
+            menu.push("</a></li>\n");
+        }
+    }
+
+    return function dropdown() {
         var args = Array.prototype.slice.call(arguments),
             opt = args.pop(),
             lists = args;
@@ -108,13 +122,7 @@ Ateles(['pure_css', 'css'], function (_, css) {
         menu.push("\n");
 
         lists.forEach(function (list) {
-            list.forEach(function (item) {
-                menu.push('<li class="pure-menu-item"><a class="pure-menu-link ateles-pure-menu-link" href="#');
-                menu.push(item);
-                menu.push('">');
-                menu.push(item);
-                menu.push("</a></li>\n");
-            })
+            add_li(menu, list);
             menu.push("<hr class='ateles-pure-menu-hr'>\n");
         })
 
