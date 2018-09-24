@@ -37,12 +37,12 @@ Ateles(['pure_css', 'css'], function (_, css) {
         return i++;
     }
 
-    css.text(
+    var custom_pure_style = [
         '.ateles-pure-menu-has-children{border: 1px solid #eee;}',
         '.ateles-pure-menu-hr{display: block; border: 0; border-top: 1px solid #f4f4f4; margin: 0; padding: 0;}',
         '.ateles-pure-menu-children{border: 1px solid #eee;}',
         '.ateles-pure-menu-link{padding: 0 .5em;}'
-    );
+    ];
 
     function assign_css(opt) {
         var direction = opt.direction || 'down_right',
@@ -57,17 +57,20 @@ Ateles(['pure_css', 'css'], function (_, css) {
 
         arrow = opt.name ? arrow : arrow.replace(/\\a0/, '');
 
-        var style = [
-            '#', selectors.id, '{', style_opt.id, '}',
+        var force_custom = custom_pure_style.map(s => ['#', selectors.id, ' ', s]).flat(),
+            style = [
+                '#', selectors.id, '{', style_opt.id, '}',
 
-            '#', selectors.link_id, '{text-decoration: none}',
-            '#', selectors.link_id, ':after{content:none}',
-            '#', selectors.link_id, arrow,
-            '#', selectors.link_id, '{', style_opt.link, '}',
-            '#', selectors.id, ':hover #', selectors.link_id, '{', style_opt.hover_link, '}',
+                '#', selectors.link_id, '{text-decoration: none}',
+                '#', selectors.link_id, ':after{content:none}',
+                '#', selectors.link_id, arrow,
+                '#', selectors.link_id, '{', style_opt.link, '}',
+                '#', selectors.id, ':hover #', selectors.link_id, '{', style_opt.hover_link, '}',
 
-            '#', selectors.children_id, '{', menu_directions[direction], '}'
-        ];
+                '#', selectors.children_id, '{', menu_directions[direction], '}'
+            ];
+
+        style = force_custom.concat(style)
 
         if (arrow.indexOf('after') > -1) {
             style = style.concat(['#', selectors.link_id, ':after{padding-left: 0}']);
