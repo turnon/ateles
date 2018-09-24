@@ -2,10 +2,10 @@
 Ateles(['pure_css', 'css'], function (_, css) {
 
     var menu_directions = {
-        down_right: 'margin: 0 0 0 -1px;',
+        down_right: 'top: 100%; margin: 0 0 0 -1px;',
         up_right: 'bottom: 100%; margin: 0 0 0 -1px;',
 
-        down_left: 'right: 0; left: auto; margin: 0 -1px 0 0;',
+        down_left: 'top: 100%; right: 0; left: auto; margin: 0 -1px 0 0;',
         up_left: 'right: 0; left: auto; bottom: 100%; margin: 0 -1px 0 0;',
 
         right_down: 'left: 100%; top: 0; margin: -1px 0 0 0;',
