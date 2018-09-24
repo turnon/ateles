@@ -1,5 +1,6 @@
 // https://greasyfork.org/zh-CN/scripts/372188-ateles
 // https://github.com/turnon/ateles
+// eval(await fetch('https://raw.githubusercontent.com/turnon/ateles/master/ateles.js').then(d => d.text()))
 window.Ateles = (function () {
     var branch = 'master',
         repo = 'https://raw.githubusercontent.com/turnon/ateles/',
@@ -122,6 +123,8 @@ window.Ateles = (function () {
             mod_generator = dep_names;
             dep_names = [];
         }
+
+        dep_names = Array.isArray(dep_names) ? dep_names : [dep_names];
         self_name = (self_name || "main")
         parent = (parent || {
             modules_cache: {},
