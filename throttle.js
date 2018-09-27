@@ -1,6 +1,7 @@
 Ateles(_ => {
     return function (interval) {
-        let looping = false,
+        let looping,
+            prev = Date.now(),
             buffer = [],
             shift = _ => {}
 
@@ -8,18 +9,24 @@ Ateles(_ => {
             if (typeof fn !== 'function') return
 
             if (fn === shift) {
-                fn = buffer.shift()
-                if (fn) fn()
+                if (fn = buffer.shift()) {
+                    fn()
+                    prev = Date.now()
+                }
 
-                setTimeout(_buffer, interval, shift)
+                looping = setTimeout(_buffer, interval, shift)
                 return
+            }
+
+            if (Date.now() - prev > interval) {
+                clearTimeout(looping)
+                looping = undefined
             }
 
             buffer.push(fn)
             if (looping) return
 
             _buffer(shift)
-            looping = true
         }
 
         return _buffer
