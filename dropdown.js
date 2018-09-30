@@ -38,7 +38,6 @@ Ateles(['pure_css', 'css'], function (_, css) {
     }
 
     var custom_pure_style = [
-        '.ateles-pure-menu-has-children{border: 1px solid #eee;}',
         '.ateles-pure-menu-hr{display: block; border: 0; border-top: 1px solid #f4f4f4; margin: 0; padding: 0;}',
         '.ateles-pure-menu-children{border: 1px solid #eee;}',
         '.ateles-pure-menu-link{padding: 0 .5em; float: none; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}'
@@ -52,6 +51,7 @@ Ateles(['pure_css', 'css'], function (_, css) {
             selectors = {
                 id: 'ateles-pure-menu-' + id,
                 link_id: 'ateles-pure-menu-link-' + id,
+                has_children_id: 'ateles-pure-menu-has-children-' + id,
                 children_id: 'ateles-pure-menu-children-' + id
             };
 
@@ -72,6 +72,15 @@ Ateles(['pure_css', 'css'], function (_, css) {
 
         if (arrow.indexOf('after') > -1) {
             style = style.concat(['#', selectors.link_id, ':after{padding-left: 0}']);
+        }
+
+        if (style_opt.shadow) {
+            style = style.concat([
+                '#', selectors.has_children_id, '{border: none}',
+                '#', selectors.children_id, '{box-shadow: 3px 3px 1px rgba(0,0,0,0.2);}'
+            ]);
+        } else {
+            style = style.concat(['#', selectors.has_children_id, '{border: 1px solid #eee;}']);
         }
 
         css.text.apply(null, style);
@@ -109,7 +118,8 @@ Ateles(['pure_css', 'css'], function (_, css) {
             menu = [
                 '<div id="', selectors.id, '" class="pure-menu pure-menu-horizontal">', "\n",
                 '<ul class="pure-menu-list">', "\n",
-                '<li class="pure-menu-item pure-menu-has-children ateles-pure-menu-has-children pure-menu-allow-hover">'
+                '<li id="', selectors.has_children_id,
+                '" class="pure-menu-item pure-menu-has-children ateles-pure-menu-has-children pure-menu-allow-hover">'
             ];
 
         menu.push('<a href="#" id="');
