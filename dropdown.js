@@ -41,7 +41,7 @@ Ateles(['pure_css', 'css'], function (_, css) {
         '.ateles-pure-menu-has-children{border: 1px solid #eee;}',
         '.ateles-pure-menu-hr{display: block; border: 0; border-top: 1px solid #f4f4f4; margin: 0; padding: 0;}',
         '.ateles-pure-menu-children{border: 1px solid #eee;}',
-        '.ateles-pure-menu-link{padding: 0 .5em; float: none; text-decoration: none;}'
+        '.ateles-pure-menu-link{padding: 0 .5em; float: none; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}'
     ];
 
     function assign_css(opt) {
@@ -67,7 +67,7 @@ Ateles(['pure_css', 'css'], function (_, css) {
                 '#', selectors.link_id, '{', style_opt.link, '}',
                 '#', selectors.id, ':hover #', selectors.link_id, '{', style_opt.hover_link, '}',
 
-                '#', selectors.children_id, '{', menu_directions[direction], '}'
+                '#', selectors.children_id, '{', menu_directions[direction], style_opt.children, '}'
             ]);
 
         if (arrow.indexOf('after') > -1) {
