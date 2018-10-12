@@ -38,9 +38,10 @@ Ateles(function () {
         return css_arr.join("\n");
     }
 
-    function inject(tag) {
-        var head = document.head || document.getElementsByTagName('head')[0];
-        head.appendChild(tag);
+    function inject(tag, important) {
+        let head = document.head || document.getElementsByTagName('head')[0],
+            position = important ? 'beforeend' : 'afterbegin'
+        head.insertAdjacentElement(position, tag);
     }
 
     function text() {
@@ -52,13 +53,14 @@ Ateles(function () {
         inject(style);
     }
 
-    function link(css) {
-        var link = document.createElement('link');
+    function link(css, opt) {
+        let link = document.createElement('link'),
+            important = opt && opt.important
         link.rel = 'stylesheet';
         link.type = 'text/css';
         link.href = css;
         link.media = 'all';
-        inject(link);
+        inject(link, important);
     }
 
     return {
