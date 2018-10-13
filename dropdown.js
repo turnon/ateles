@@ -141,5 +141,7 @@ Ateles(['pure_css', 'css'], function (_, css) {
         menu.push("</ul></li></ul></div>");
 
         insert(menu.join(''), opt);
+
+        return document.getElementById(selectors.id);
     }
 })
