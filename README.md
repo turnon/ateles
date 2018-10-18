@@ -4,7 +4,7 @@ Modules for userscript.
 
 ## ateles
 
-`Ateles` is a module loader like requirejs. It can be used to `require` or `define` modules in this repo
+A module loader like requirejs, can be used to `require` or `define` modules in this repo
 
 ```javascript
 Ateles(["module_1", "module_2"], (module_1, module_2) => {
@@ -44,3 +44,11 @@ css.text(
     ".footer{margin-top: 10px}.header{height: 100px}"
 );
 ```
+
+## page_loader
+
+Load subsequent pages into current page. Examples:
+
+[when the number of pages is known](https://github.com/turnon/douban_all_photos/blob/master/douban_all_photos.js)
+
+[when unknown](https://github.com/turnon/gocn_all_news/blob/master/gocn_all_news.js)
