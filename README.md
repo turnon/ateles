@@ -16,6 +16,8 @@ Ateles(["module_1", "module_2"], (module_1, module_2) => {
 
 ## anchor
 
+Usually used with `dropdown` to generate a dropdown table of content
+
 ```javascript
 anchor({
     selector: _ => document.querySelectorAll(".titletext"), // required, where to add anchors
@@ -44,6 +46,32 @@ css.text(
     ".footer{margin-top: 10px}.header{height: 100px}"
 );
 ```
+
+## dropdown
+
+Add dropdown table of content on page. For example, [mongodb_docs_toc](https://github.com/turnon/mongodb_docs_toc)
+
+```javascript
+let dd = dropdown(list, {
+    beforeend: document.body, // where to add the dropdown list
+    direction: "left_down", // what direction to expand the list
+    style: {
+        // add shadow or not, false as default
+        shadow: true,
+        // style of the whole list, usually used to set position
+        id: "position: fixed; top: 70px; left: 1200px;"
+        // other style setting:
+        //   hover_link: the hovered arrow
+        //   children: the list
+    }
+});
+```
+
+`dropdown` accepts multiple lists. The structure of a `list` can be one of these:
+
+-   `{id_1: 'text_1', id_2: 'text_2', id_3: 'text_3'}`
+-   `['text_1', 'text_2', 'text_3']`
+-   `[{id: 'id_1', indent: 0, text: 'text_1'}, {id: 'id_2', indent: 2, text: 'text_2'}, {id: 'id_3', indent: 0, text: 'text_3'}]`
 
 ## page_loader
 
