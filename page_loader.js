@@ -20,6 +20,7 @@ Ateles(function () {
                 var data = await fetch(next_page).then(resp => resp.text());
                 next_page = cfg.next_page(data);
                 cfg.append_page(data);
+                if (cfg.interval) await sleep(cfg.interval());
             }
             cfg.button_all.remove();
         }
