@@ -1,16 +1,19 @@
 Ateles(function () {
 
     function page_loader(config) {
-        if (!config.button) {
-            return load_pages_with(config)();
-        }
-
-        var button_all = config.button();
         var cfg = Object.assign({
-            button_all: button_all
+            break_at: function () {
+                return false;
+            }
         }, config);
 
-        button_all.css('cursor', 'pointer').click(load_pages_with(cfg));
+        if (!cfg.button) {
+            return load_pages_with(cfg)();
+        }
+
+        cfg.button_all = cfg.button();
+        // todo: use vanilla js
+        cfg.button_all.css('cursor', 'pointer').click(load_pages_with(cfg));
     }
 
     function sleep(ms) {
@@ -22,12 +25,15 @@ Ateles(function () {
     }
 
     function load_pages_with(cfg) {
+        var page_num = 1;
+
         if (!cfg.page_count) return async function () {
             var next_page = cfg.next_page(document);
             while (next_page) {
                 var data = await fetch(next_page).then(resp => resp.text());
                 next_page = cfg.next_page(data);
                 cfg.append_page(data);
+                if (cfg.break_at(++page_num)) break;
                 if (cfg.interval) await sleep(cfg.interval());
             }
             remove_button(cfg);
@@ -41,6 +47,7 @@ Ateles(function () {
                 var next_page = cfg.next_page(i),
                     data = await fetch(next_page).then(resp => resp.text());
                 cfg.append_page(data);
+                if (cfg.break_at(++page_num)) break;
                 await sleep(cfg.interval());
             }
 
@@ -53,6 +60,7 @@ Ateles(function () {
                 var next_page = cfg.next_page(i);
                 var fetcher = fetch(next_page).then(resp => resp.text());
                 page_loaders.push(fetcher);
+                if (cfg.break_at(++page_num)) break;
             }
 
             (async function () {

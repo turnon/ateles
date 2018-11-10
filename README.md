@@ -80,3 +80,25 @@ Load subsequent pages into current page. Examples:
 [when the number of pages is known](https://github.com/turnon/douban_all_photos/blob/master/douban_all_photos.js)
 
 [when unknown](https://github.com/turnon/gocn_all_news/blob/master/gocn_all_news.js)
+
+To lower the frequency:
+
+```javascript
+var config = {
+    // ...
+    interval: function () {
+        return 2000;
+    }
+};
+```
+
+To limit the number of pages, for example, 10:
+
+```javascript
+var config = {
+    // ...
+    break_at: function (n) {
+        return n >= 10;
+    },
+};
+```
